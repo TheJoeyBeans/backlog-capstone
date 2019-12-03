@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import SiteHeader from '../SiteHeader';
 
 class HomePage extends Component {
 	constructor(){
@@ -8,6 +9,7 @@ class HomePage extends Component {
 	render(){
 		return(
 			<div>
+				<SiteHeader />
 				<p>Hey</p>
 			</div>
 		)
