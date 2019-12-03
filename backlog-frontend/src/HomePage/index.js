@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import SiteHeader from '../SiteHeader';
+import GameSearchResults from '../GameSearchResults';
 import axios from 'axios';
 
 class HomePage extends Component {
@@ -38,14 +39,21 @@ class HomePage extends Component {
 			}
 		})
 		this.setState({
-			searchQuery: ''
+			searchQuery: '',
+			showGameResults: true
+		})
+	}
+	closeGameResultsModal = () =>{
+		this.setState({
+			showGameResults: false,
+			foundGames: []
 		})
 	}
 	render(){
 		return(
 			<div>
 				<SiteHeader search={this.handleQuery} fetchResults={this.fetchGameResults}/>
-				<p>Hey</p>
+				<GameSearchResults open={this.state.showGameResults} close={this.closeGameResultsModal} gameResults={this.state.foundGames}/>
 			</div>
 		)
 	}
