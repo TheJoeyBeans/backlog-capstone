@@ -10,3 +10,9 @@ body{
 .headerDropDown{
 	float: right;
 }
+
+.gameListItem{
+	height: 200px;
+	width: 75%;
+	padding: 50px 0;
+}

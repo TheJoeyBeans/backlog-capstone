@@ -4,12 +4,12 @@ import { Image, Row, Col, Container } from 'react-bootstrap';
 function GameSearchResults(props){
 	const gameItem = props.gameResults.map((game) =>{
 		return(
-			<Row key={game.id}>
-				<Col>
+			<Row className='gameListItem' key={game.id}>
+				<Col md={6}>
 					<Image src={game.pic} thumbnail/>
 				</Col>
-				<Col>
-					<h3>{game.title}</h3>
+				<Col md={6}>
+					<h4>{game.title}</h4>
 				</Col>
 			</Row>
 		)
