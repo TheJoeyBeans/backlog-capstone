@@ -1,13 +1,23 @@
 import React from 'react';
-import { Modal, Button } from 'react-bootstrap';
+import { Image, Row, Col, Container } from 'react-bootstrap';
 
 function GameSearchResults(props){
-
+	const gameItem = props.gameResults.map((game) =>{
+		return(
+			<Row key={game.id}>
+				<Col>
+					<Image src={game.pic} thumbnail/>
+				</Col>
+				<Col>
+					<h3>{game.title}</h3>
+				</Col>
+			</Row>
+		)
+	});
 	return (
-		<Modal show={props.open}>
-			<Modal.Body>hey</Modal.Body>
-			<Button onClick={props.close}>close</Button>
-		</Modal>
+		<Container>
+			{gameItem}
+		</Container>
 	)
 }
 

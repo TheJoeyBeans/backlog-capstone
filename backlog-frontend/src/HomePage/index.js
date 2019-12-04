@@ -8,12 +8,16 @@ class HomePage extends Component {
 		super();
 
 		this.state = {
-			foundGames: [],
-			showGameResults: false
+			foundGames: []
 		}
 	}
-
+	//When a user searchs for a game, 9 results are brought back to them. Title, picture, and id of the game are 
+	//temporarly stored in state so that the gameSearchResults list can bring back a list of the responses for the user.
+	//If the state already has some foundGames in them, the state is cleared. 
 	fetchGameResults = (query) => {
+		this.setState({
+			foundGames: []
+		});
 		const searchUrl = `https://api.rawg.io/api/games?search=${query}&page_size=10`;
 		axios.get(searchUrl, {
 			headers: {
@@ -21,6 +25,7 @@ class HomePage extends Component {
 			}
 		}).then(response =>{
 			const foundResults = response.data.results;
+			console.log(foundResults);
 			for(let i = 1; i < foundResults.length; i++){
 				const gameTitle = foundResults[i].name;
 				const gamePic = foundResults[i].background_image;
@@ -39,13 +44,13 @@ class HomePage extends Component {
 			}
 		})
 		this.setState({
-			searchQuery: '',
-			showGameResults: true
+			searchQuery: ''
 		})
 	}
-	closeGameResultsModal = () =>{
+	//foundGames in the search bar will be cleared so that the user can search for another game without previous 
+	//data inhibiting their ability to do so. 
+	clearGameResults = () =>{
 		this.setState({
-			showGameResults: false,
 			foundGames: []
 		})
 	}
@@ -53,7 +58,7 @@ class HomePage extends Component {
 		return(
 			<div>
 				<SiteHeader search={this.handleQuery} fetchResults={this.fetchGameResults}/>
-				<GameSearchResults open={this.state.showGameResults} close={this.closeGameResultsModal} gameResults={this.state.foundGames}/>
+				<GameSearchResults gameResults={this.state.foundGames}/>
 			</div>
 		)
 	}
