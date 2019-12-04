@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import SiteHeader from '../SiteHeader';
+import { Row, Col, Container } from 'react-bootstrap';
 import GameSearchResults from '../GameSearchResults';
 import axios from 'axios';
 
@@ -26,7 +27,7 @@ class HomePage extends Component {
 		}).then(response =>{
 			const foundResults = response.data.results;
 			console.log(foundResults);
-			for(let i = 1; i < foundResults.length; i++){
+			for(let i = 0; i < foundResults.length; i++){
 				const gameTitle = foundResults[i].name;
 				const gamePic = foundResults[i].background_image;
 				const gameId = foundResults[i].id;
@@ -58,7 +59,15 @@ class HomePage extends Component {
 		return(
 			<div>
 				<SiteHeader search={this.handleQuery} fetchResults={this.fetchGameResults}/>
-				<GameSearchResults gameResults={this.state.foundGames}/>
+				<Row>
+					<Col lg={2}>
+					</Col>
+					<Col md={8}>
+						<GameSearchResults gameResults={this.state.foundGames}/>
+					</Col>
+					<Col lg={2}>
+					</Col>
+				</Row>
 			</div>
 		)
 	}
