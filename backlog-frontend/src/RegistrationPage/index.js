@@ -35,7 +35,13 @@ class RegistrationPage extends Component {
 		console.log(registerResponse, "This is the registration response")
 		const parsedResponse = await registerResponse.json();
 		console.log(parsedResponse, "this is your parsedResponse");
-		this.props.history.push('/');
+		if (parsedResponse.status === 201){
+			console.log('Sign up successful');
+			this.props.history.push('/');
+		} else {
+			console.log('did not register')
+		}
+		
 	}
 
 	render() {
