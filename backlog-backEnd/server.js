@@ -5,6 +5,11 @@ const app = express();
 const bodyParser = require('body-parser');
 const methodOverride = require('method-override');
 // const session = require('express-session');
+const corsOptions = {
+	origin: 'http://localhost:3000',
+	credentials: true,
+	optionsSuccessStatus: 200
+}
 
 require('dotenv').config();
 require('./db/db');
@@ -15,7 +20,7 @@ require('./db/db');
 
 app.use(bodyParser.json());
 app.use(methodOverride('_method'));
-app.use(cors());
+app.use(cors(corsOptions));
 
 const registrationController = require('./controllers/register.js');
 app.use('/register', registrationController);
