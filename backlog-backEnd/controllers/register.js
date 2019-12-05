@@ -24,4 +24,26 @@ router.post('/', async (req, res) =>{
 	}
 });
 
+router.post('/login', async (req, res) =>{
+	try {
+		const foundUser = await User.findOne({email: req.body.email});
+		if(foundUser){
+			if(bcrypt.compareSync(req.body.password, foundUser.password)){
+				req.session.message = '';
+				req.session.username = foundUser.username;
+				req.session.logged = true;
+				res.send({message: "User LoggedIn", status: 200})
+			} else {
+				req.session.message = "Username/password incorrect";
+				res.redirect('/');
+			}
+		} else {
+			req.session.message = "Username/password incorrect";
+			res.redirect('/');
+		}
+	} catch(err){
+		res.send(err);
+	}
+});
+
 module.exports = router;
