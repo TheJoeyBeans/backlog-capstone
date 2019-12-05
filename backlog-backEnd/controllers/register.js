@@ -1,12 +1,17 @@
 const express = require('express');
 const router = express.Router();
+const cors = require('cors');
 const User = require('../models/users.js');
 const bcrypt = require('bcryptjs');
 
+const corsOptions = {
+	origin: 'http://localhost:3000',
+	credentials: true,
+	optionsSuccessStatus: 200
+}
 
-
-router.post('/', async (req, res) =>{
-	console.log(req)
+router.post('/', cors(corsOptions), async (req, res) =>{
+	console.log(req.body)
 	try{
 		const newUser = {};
 		newUser.displayName = req.body.displayName
