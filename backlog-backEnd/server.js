@@ -1,5 +1,6 @@
 const env = require('dotenv').config();
 const express = require('express');
+const cors = require('cors');
 const app = express();
 const bodyParser = require('body-parser');
 const methodOverride = require('method-override');
@@ -14,6 +15,7 @@ require('./db/db');
 
 app.use(bodyParser.json());
 app.use(methodOverride('_method'));
+app.use(cors());
 
 const registrationController = require('./controllers/register.js');
 app.use('/register', registrationController);
