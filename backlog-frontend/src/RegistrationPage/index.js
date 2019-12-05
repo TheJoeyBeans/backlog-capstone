@@ -21,7 +21,18 @@ class RegistrationPage extends Component {
 
 	handleSubmit = async (e) => {
 		e.preventDefault();
-		console.log(this.state);
+		const registrationUrl = `${process.env.REACT_APP_BACKEND_URL}/register`;
+		const registerResponse = await fetch(registrationUrl, {
+			method: 'POST',
+			body: JSON.stringify(this.state),
+			credentials: 'include',
+			headers: {
+				'Content-Type': 'application/json'
+			}
+		});
+
+		const parsedResponse = await registerResponse.json();
+		console.log(parsedResponse, "this is your parsedResponse");
 	}
 
 	render() {
