@@ -16,3 +16,11 @@ body{
 	width: 75%;
 	padding: 50px 0;
 }
+
+.registrationContainer{
+	border: 2px solid #343A40;
+	position: relative;
+	margin: 10% auto;
+	width: 500px;
+	padding: 5px 10px;
+}
