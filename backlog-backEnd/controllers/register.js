@@ -1,24 +1,24 @@
 const express = require('express');
 const router = express.Router();
-const cors = require('cors');
 const User = require('../models/users.js');
 const bcrypt = require('bcryptjs');
 
-const corsOptions = {
-	origin: 'http://localhost:3000',
-	credentials: true,
-	optionsSuccessStatus: 200
-}
-
-router.post('/', cors(corsOptions), async (req, res) =>{
+router.post('/', async (req, res) =>{
 	console.log(req.body)
 	try{
+		const password = req.body.password;
+		const passwordHash = bcrypt.hashSync(password, bcrypt.genSaltSync(10))
 		const newUser = {};
-		newUser.displayName = req.body.displayName
-		newUser.email = req.body.email
-		newUser.password = req.body.password
-		res.statusCode = 200;
-		res.send('Ok');
+		newUser.displayName = req.body.displayName;
+		newUser.email = req.body.email;
+		newUser.password = passwordHash;
+
+		const createdUser = await User.create(newUser);
+		console.log('Created user', createdUser)
+		req.session.username = createdUser.username;
+		req.session.logged = true;
+
+		res.send({message: "User Registered", status: 201})
 	} catch(err){
 		res.send(err);
 	}
